@@ -1,0 +1,242 @@
+/*index.css*/
+
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+@import "tailwindcss";
+
+/* Definiciones explícitas de animaciones */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-1deg); }
+  50% { transform: rotate(1deg); }
+}
+
+@keyframes rotate-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Clases de animación explícitas para ayudar a Tailwind */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-sparkle {
+  animation: sparkle 2s linear infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-wiggle {
+  animation: wiggle 2s ease-in-out infinite;
+}
+
+.animate-rotate-slow {
+  animation: rotate-slow 8s linear infinite;
+}
+
+/* Asegurar que los elementos se vean bien */
+img {
+  object-fit: cover;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Efectos de hover mejorados */
+.collage-item {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.collage-item:hover {
+  z-index: 10;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1), 
+              0 0 20px rgba(189, 236, 215, 0.3), 
+              0 0 15px rgba(255, 202, 212, 0.3);
+}
+
+/* Estilos para elementos de texto */
+.quote-text {
+  font-style: italic;
+  position: relative;
+}
+
+.quote-text::before,
+.quote-text::after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.6;
+}
+
+.quote-text::before {
+  top: -8px;
+  left: -12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23BDECD7'%3E%3Cpath d='M10,7L8,11H11V17H5V11L7,7H10M18,7L16,11H19V17H13V11L15,7H18Z'/%3E%3C/svg%3E");
+}
+
+.quote-text::after {
+  bottom: -8px;
+  right: -12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFCAD4'%3E%3Cpath d='M14,17L16,13H13V7H19V13L17,17H14M6,17L8,13H5V7H11V13L9,17H6Z'/%3E%3C/svg%3E");
+}
+
+/* Mejoras para estilos de fondo */
+.bg-fairy-gradient {
+  background: linear-gradient(
+    135deg,
+    rgba(189, 236, 215, 0.2) 0%,
+    rgba(199, 233, 244, 0.2) 25%,
+    rgba(255, 244, 189, 0.2) 50%,
+    rgba(255, 202, 212, 0.2) 75%,
+    rgba(226, 204, 255, 0.2) 100%
+  );
+}
+
+.backdrop-fairy {
+  backdrop-filter: blur(8px);
+}
+
+
+@media (max-width: 640px) {
+  .collage-item {
+    transition: transform 0.3s ease;
+  }
+  
+  .collage-item:active {
+    transform: scale(0.97);
+  }
+  
+  /* Reducir tamaño de elementos decorativos en móvil */
+  .decoration-element {
+    transform: scale(0.8);
+  }
+}
+
+/* Mejoras para responsividad de imágenes - Solo añadir estas reglas */
+
+/* Prevenir distorsión de imágenes */
+.collage-item img {
+  max-height: 100%;
+  width: 100%;
+  transition: transform 0.3s ease-out;
+}
+
+/* Optimizaciones específicas para móviles */
+@media (max-width: 640px) {
+  /* Contenedores de imágenes en móvil */
+  .collage-item {
+    transition: transform 0.3s ease;
+    min-height: 180px !important;
+    max-height: 400px !important;
+    height: auto !important;
+  }
+  
+  /* Evitar desbordamiento */
+  .collage-item img {
+    object-position: center;
+    max-height: 400px;
+  }
+  
+  /* Evitar recortes con espaciado */
+  .grid {
+    gap: 0.75rem !important;
+    grid-auto-rows: minmax(min-content, max-content) !important;
+  }
+  
+  /* Eliminar rotaciones en móvil para evitar recortes */
+  .transform[class*="rotate"] {
+    transform: none !important;
+  }
+  
+  /* Arreglar problemas de altura en móvil */
+  [class*="h-"] {
+    height: auto !important;
+    min-height: 200px !important;
+  }
+  
+  /* Permitir que los contenedores row-span se ajusten correctamente */
+  [class*="row-span"] {
+    grid-row: span 1 !important;
+  }
+}
+
+/* Añade estas reglas a tu index.css */
+
+/* Deshabilitar animaciones y efectos que causan destellos en móvil */
+@media (max-width: 768px) {
+  /* Desactivar animaciones de polvo de hadas y decoraciones en móvil */
+  .fairy-decorations div, 
+  .fairy-decorations svg,
+  [class*="animate-"], 
+  [class*="blur-"],
+  [style*="animation"],
+  [class*="sparkle"],
+  [class*="pulse"] {
+    animation: none !important;
+    transition: none !important;
+    animation-delay: 0s !important;
+    opacity: 0.3 !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+  
+  /* Reducir o eliminar efectos de brillo que causan parpadeos */
+  [class*="blur-"], 
+  .blur-sm, 
+  .blur-md, 
+  .blur-lg,
+  .blur-xl {
+    filter: none !important;
+    backdrop-filter: none !important;
+  }
+  
+  /* Eliminar elementos decorativos absolutamente posicionados que puedan causar problemas */
+  .absolute {
+    display: none !important;
+  }
+  
+  /* Hacer que FairyPattern sea invisible en móvil */
+  #fairy-pattern {
+    opacity: 0.05 !important;
+  }
+  
+  /* Desactivar estilos fijos para evitar parpadeos durante el scroll */
+  .fixed {
+    position: absolute !important;
+  }
+  
+  /* Simplificar gradientes para mejor rendimiento */
+  [class*="from-"][class*="to-"],
+  [class*="via-"] {
+    background: rgba(255, 255, 255, 0.05) !important;
+  }
+  
+  /* Mejorar rendimiento de scroll */
+  html, body {
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+    overscroll-behavior-y: none;
+  }
+}
